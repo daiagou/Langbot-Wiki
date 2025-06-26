@@ -16,6 +16,8 @@ LangBot 目前支持通过 n8n 工作流的 `Webhook` 节点，来触发工作�
 
 ![n8n 工作流](/assets/image/zh/deploy/pipelines/n8n/create_wf.png)
 
+## 设置好了 n8n 工作流之后，需要在机器人里面，切换工作流为刚创建的n8n 工作流。
+
 需要选择`Webhook`触发，并参考下图配置：
 
 ![n8n webhook 配置](/assets/image/zh/deploy/pipelines/n8n/config_webhook.png)
@@ -32,4 +34,12 @@ n8n 的工作流响应内容请使用`Respond to Webhook`节点，并参考下�
 
 `Response Body`中的响应内容键名需要与 LangBot 流水线配置中的`输出键名`一致。
 
+## `Response Body`的响应值应该是：
+{
+"response":{{JSON.stringify($json.output)}}
+}
+
 在完成 n8n 工作流的配置之后，请在其顶部点击`Active`以启用工作流。
+
+## 激活之后记得用Webhook 节点的 Production url 而不再是 Test url
+## 注意：暂时不支持 localhost 的 http 协议。如果本地测试，可以用 ngrok 这些工具，代理一下。
